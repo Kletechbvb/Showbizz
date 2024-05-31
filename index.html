@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
     <title>Showbizz By MIB</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             overflow: hidden;
-            orientation: portrait; /* Added to enforce vertical orientation */
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #webviewContainer {
@@ -24,14 +26,14 @@
         }
 
         #websiteFrame {
-            width: 100%; 
-            height: 100%; 
+            width: 100%;
+            height: 100%;
             border: none;
             position: absolute;
             top: 0;
             left: 0;
             z-index: 1;
-            display: none; /* Initially hide the iframe */
+            display: none;
         }
 
         #topRightBox {
@@ -42,7 +44,7 @@
             height: 50px;
             background-color: #000000;
             z-index: 2;
-            display: none; /* Initially hide the top right box */
+            display: none;
         }
 
         #bottomBar {
@@ -53,10 +55,27 @@
             background-color: #ffffff;
             color: #fff;
             text-align: center;
-            line-height: 30px; 
+            line-height: 30px;
             font-size: 14px;
             z-index: 3;
-            display: none; /* Initially hide the bottom bar */
+            display: none;
+        }
+
+        #landscapeWarning {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            color: #ffffff;
+            text-align: center;
+            font-size: 24px;
+            z-index: 4;
+            justify-content: center;
+            align-items: center;
+            display: flex;
         }
     </style>
 </head>
@@ -66,22 +85,46 @@
     <iframe id="websiteFrame" src="https://kletechbvb.github.io/pupa/"></iframe>
     <div id="topRightBox"></div>
     <div id="bottomBar"></div>
+    <div id="landscapeWarning">Please rotate your device to portrait mode</div>
 </div>
 
 <script>
+    function checkOrientation() {
+        if (window.innerHeight < window.innerWidth) {
+            document.getElementById("landscapeWarning").style.display = "flex";
+            document.getElementById("webviewContainer").style.display = "none";
+        } else {
+            document.getElementById("landscapeWarning").style.display = "none";
+            document.getElementById("webviewContainer").style.display = "block";
+        }
+    }
+
+    function lockOrientation() {
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('portrait').catch(function(error) {
+                console.log("Orientation lock failed: ", error);
+            });
+        } else {
+            console.log("Orientation lock not supported.");
+        }
+    }
+
     window.onload = function() {
+        checkOrientation();
+        lockOrientation();
+
         // Show the iframe after the page is fully loaded
         document.getElementById("websiteFrame").style.display = "block";
-        
+
         // After 2 seconds, show the top right box and bottom bar
         setTimeout(function () {
             document.getElementById("topRightBox").style.display = "block";
             document.getElementById("bottomBar").style.display = "block";
         }, 2000); // 2000 milliseconds = 2 seconds
     };
-</script>
 
-<script>
+    window.onresize = checkOrientation;
+
     // Check if the device is not a mobile phone
     if (!(/Mobi/.test(navigator.userAgent))) {
         // Redirect to www.youtube.com
