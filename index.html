@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  
     <title>Showbizz By MIB</title>
     <style>
-      body, html {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        orientation: portrait; /* Added to enforce vertical orientation */
-    }
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            orientation: portrait; /* Added to enforce vertical orientation */
+        }
 
         #webviewContainer {
             position: relative;
@@ -74,20 +73,21 @@
         // Show the iframe after the page is fully loaded
         document.getElementById("websiteFrame").style.display = "block";
         
-        // After 1 second, show the top right box and bottom bar
+        // After 2 seconds, show the top right box and bottom bar
         setTimeout(function () {
             document.getElementById("topRightBox").style.display = "block";
             document.getElementById("bottomBar").style.display = "block";
-        }, 2000); // 1000 milliseconds = 1 second
+        }, 2000); // 2000 milliseconds = 2 seconds
     };
 </script>
 
-  <script>
-        // Check if the device is not a mobile phone
-        if (!(/Mobi/.test(navigator.userAgent))) {
-            // Redirect to www.youtube.com
-            window.location.href = "https://kletechbvb.github.io/Showbizz./;
-        }
-    </script>
+<script>
+    // Check if the device is not a mobile phone
+    if (!(/Mobi/.test(navigator.userAgent))) {
+        // Redirect to www.youtube.com
+        window.location.href = "https://kletechbvb.github.io/Showbizz.";
+    }
+</script>
+
 </body>
 </html>
